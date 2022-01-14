@@ -1,6 +1,5 @@
-// Create objects to hold sample id's, sample demographics, and sample data. This allows the sample to be read just once.
+// Create global objects to hold fertility data from json. This allows the sample to be read just once.
 var countries = {};
-// var demogs = {};
 var dataList = {};
 var gdpList = {};
 
@@ -34,51 +33,42 @@ function buildDropDown(countries) {
 // Function to build Graph 1
 function updateGraph1() {
 
-    var yearArray = sampleOne[0].year;
-    var fertilityArray = sampleOne[0].fertility;
+  var yearArray = sampleOne[0].year;
+  var fertilityArray1 = sampleOne[0].fertility;
+  var fertilityArray2 = sampleTwo[0].fertility;
+  var fertilityArray3 = sampleThree[0].fertility;
 
-    var trace1 = {
-      type: 'line',
-      x: yearArray,
-      y: fertilityArray,
-      name: sampleOne[0].country,
-      width: .8
-    };
-
-  yearArray = sampleTwo[0].year;
-  fertilityArray = sampleTwo[0].fertility;
-  var trace2 = {
-      type: 'line',
-      x: yearArray,
-      y: fertilityArray,
-      name: sampleTwo[0].country,
-      width: .8
-    };
-
-  yearArray = sampleThree[0].year;
-  fertilityArray = sampleThree[0].fertility;  
-  var trace3 = {
-      type: 'line',
-      x: yearArray,
-      y: fertilityArray,
-      name: sampleThree[0].country,
-      width: .8
-    };
-
-  var data = [trace1, trace2, trace3]
-
-    var layout = {
-        height: 500,
-        margin:{t:5},
-        yaxis:{
-            title: 'Births per Woman'
-        },
-        xaxis:{
-          title: 'Year'
-        }
-      }; 
+  // Define the chart to be drawn.
+  var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Year');
+      data.addColumn('number', sampleOne[0].country);
+      data.addColumn('number', sampleTwo[0].country);
+      data.addColumn('number', sampleThree[0].country);
+      for(let i=0;i < yearArray.length;i++) {
+          data.addRows([
+                  [yearArray[i].toString(),  
+                  fertilityArray1[i], 
+                  fertilityArray2[i], 
+                  fertilityArray3[i]]]);
       
-      Plotly.newPlot('graph1', data, layout);
+        };
+                
+    // Set chart options
+    var options = {'title' : 'Fertility over Time',
+        hAxis: {
+          title: 'Year'
+          },
+        vAxis: {
+          title: 'Births per Woman'
+          },   
+        // 'width':550,
+        'height':400,
+        curveType: 'function'
+      };
+    
+      // Instantiate and draw the chart.
+      var chart = new google.visualization.LineChart(document.getElementById('graph1'));
+      chart.draw(data, options);
 
 }
 
@@ -93,6 +83,7 @@ function updateGraph2() {
       mode: 'markers',
       x: popArray,
       y: fertilityArray,
+      text: sampleOne[0].year,
       name: sampleOne[0].country,
       width: .8
     };
@@ -104,6 +95,7 @@ function updateGraph2() {
       mode: 'markers',
       x: popArray,
       y: fertilityArray,
+      text: sampleTwo[0].year,
       name: sampleTwo[0].country,
       width: .8
     };
@@ -115,6 +107,7 @@ function updateGraph2() {
       mode: 'markers',
       x: popArray,
       y: fertilityArray,
+      text: sampleThree[0].year,
       name: sampleThree[0].country,
       width: .8
     };
@@ -147,6 +140,7 @@ function updateGraph3() {
       mode: 'markers',
       x: laborArray,
       y: fertilityArray,
+      text: sampleOne[0].year,
       name: sampleOne[0].country,
       width: .8
     };
@@ -158,6 +152,7 @@ function updateGraph3() {
       mode: 'markers',
       x: laborArray,
       y: fertilityArray,
+      text: sampleTwo[0].year,
       name: sampleTwo[0].country,
       width: .8
     };
@@ -169,6 +164,7 @@ function updateGraph3() {
       mode: 'markers',
       x: laborArray,
       y: fertilityArray,
+      text: sampleThree[0].year,
       name: sampleThree[0].country,
       width: .8
     };
@@ -201,7 +197,8 @@ function updateGraph4() {
       mode: 'markers',
       x: gdpArray,
       y: fertilityArray,
-      name: sampleOne[0].country,
+      text: gdpOne[0].year,
+      name: gdpOne[0].country,
       width: .8
     };
 
@@ -212,7 +209,8 @@ function updateGraph4() {
       mode: 'markers',
       x: gdpArray,
       y: fertilityArray,
-      name: sampleTwo[0].country,
+      text: gdpTwo[0].year,
+      name: gdpTwo[0].country,
       width: .8
     };
 
@@ -223,7 +221,8 @@ function updateGraph4() {
       mode: 'markers',
       x: gdpArray,
       y: fertilityArray,
-      name: sampleThree[0].country,
+      text: gdpThree[0].year,
+      name: gdpThree[0].country,
       width: .8
     };
 
@@ -244,7 +243,7 @@ function updateGraph4() {
 
 }
 
-// Function called by DDM changes
+// Function called by Drop Down Menu changes
 function optionChanged(option) {
     
     console.log(option);
@@ -270,39 +269,51 @@ function optionChanged(option) {
 
 };
 
-console.log("HERE");
 
 
-d3.json("fertdata.json").then(function(data) { 
+console.log("Start");
 
-  countries = data.countries;
-  dataList = data.data;
-  gdpList = data.data2;
 
-  console.log(data);
+google.charts.load('current', {'packages':['corechart','line']});
+google.charts.setOnLoadCallback(main);
 
-  console.log(countries);
-  console.log(dataList);
-  console.log(gdpList);
+function main() {
 
-  buildDropDown(countries);
+  console.log("Google Charts Loaded");
 
-  country = countries[0];
-  sampleOne = dataList.filter(selectData);
-  gdpOne = gdpList.filter(selectData);
+  d3.json("fertdata.json").then(function(data) { 
 
-  country = countries[1];
-  sampleTwo = dataList.filter(selectData);
-  gdpTwo = gdpList.filter(selectData);
+    console.log("JSON Loaded");
 
-  country = countries[2];
-  sampleThree = dataList.filter(selectData);
-  gdpThree = gdpList.filter(selectData);
+    countries = data.countries;
+    dataList = data.data;
+    gdpList = data.data2;
 
-  updateGraph1();
-  updateGraph2();
-  updateGraph3();
-  updateGraph4();
+    console.log(data);
 
-});
+    console.log(countries);
+    console.log(dataList);
+    console.log(gdpList);
+
+    buildDropDown(countries);
+
+    country = countries[0];
+    sampleOne = dataList.filter(selectData);
+    gdpOne = gdpList.filter(selectData);
+
+    country = countries[1];
+    sampleTwo = dataList.filter(selectData);
+    gdpTwo = gdpList.filter(selectData);
+
+    country = countries[2];
+    sampleThree = dataList.filter(selectData);
+    gdpThree = gdpList.filter(selectData);
+
+    updateGraph1();
+    updateGraph2();
+    updateGraph3();
+    updateGraph4();
+
+  });
+};
 
