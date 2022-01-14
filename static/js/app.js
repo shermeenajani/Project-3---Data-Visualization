@@ -81,6 +81,10 @@ function updateGraph2() {
   var trace1 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'blue',
+        size: 5
+      },
       x: popArray,
       y: fertilityArray,
       text: sampleOne[0].year,
@@ -93,6 +97,10 @@ function updateGraph2() {
   var trace2 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'red',
+        size: 5
+      },
       x: popArray,
       y: fertilityArray,
       text: sampleTwo[0].year,
@@ -105,6 +113,10 @@ function updateGraph2() {
   var trace3 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'orange',
+        size: 5
+      },
       x: popArray,
       y: fertilityArray,
       text: sampleThree[0].year,
@@ -138,6 +150,10 @@ function updateGraph3() {
   var trace1 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'blue',
+        size: 5
+      },
       x: laborArray,
       y: fertilityArray,
       text: sampleOne[0].year,
@@ -150,6 +166,10 @@ function updateGraph3() {
   var trace2 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'red',
+        size: 5
+      },
       x: laborArray,
       y: fertilityArray,
       text: sampleTwo[0].year,
@@ -162,6 +182,10 @@ function updateGraph3() {
   var trace3 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'orange',
+        size: 5
+      },
       x: laborArray,
       y: fertilityArray,
       text: sampleThree[0].year,
@@ -195,6 +219,10 @@ function updateGraph4() {
   var trace1 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'blue',
+        size: 5
+      },
       x: gdpArray,
       y: fertilityArray,
       text: gdpOne[0].year,
@@ -207,6 +235,10 @@ function updateGraph4() {
   var trace2 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'red',
+        size: 5
+      },
       x: gdpArray,
       y: fertilityArray,
       text: gdpTwo[0].year,
@@ -219,6 +251,10 @@ function updateGraph4() {
   var trace3 = {
       type: 'scatter',
       mode: 'markers',
+      marker: {
+        color: 'orange',
+        size: 5
+      },
       x: gdpArray,
       y: fertilityArray,
       text: gdpThree[0].year,
