@@ -2,11 +2,15 @@
 var countries = {};
 // var demogs = {};
 var dataList = {};
+var gdpList = {};
 
 var sampleMetadata = [];
 var sampleOne = [];
 var sampleTwo = [];
 var sampleThree = [];
+var gdpOne = [];
+var gdpTwo = [];
+var gdpThree = [];
 
 var country = "";
 
@@ -186,22 +190,81 @@ function updateGraph3() {
 
 }
 
+// Function to build Graph 4
+function updateGraph4() {
+
+  var gdpArray = gdpOne[0].GDP;
+  var fertilityArray = gdpOne[0].fertility;
+
+  var trace1 = {
+      type: 'scatter',
+      mode: 'markers',
+      x: gdpArray,
+      y: fertilityArray,
+      name: sampleOne[0].country,
+      width: .8
+    };
+
+  gdpArray = gdpTwo[0].GDP;
+  fertilityArray = gdpTwo[0].fertility;
+  var trace2 = {
+      type: 'scatter',
+      mode: 'markers',
+      x: gdpArray,
+      y: fertilityArray,
+      name: sampleTwo[0].country,
+      width: .8
+    };
+
+  gdpArray = gdpThree[0].GDP;
+  fertilityArray = gdpThree[0].fertility;  
+  var trace3 = {
+      type: 'scatter',
+      mode: 'markers',
+      x: gdpArray,
+      y: fertilityArray,
+      name: sampleThree[0].country,
+      width: .8
+    };
+
+  var data = [trace1, trace2, trace3]
+
+  var layout = {
+      height: 500,
+      margin:{t:15},
+      yaxis:{
+          title: 'Births per Woman'
+      },
+      xaxis:{
+        title: 'Per Capita GDP'
+      }
+    }; 
+    
+    Plotly.newPlot('graph4', data, layout);
+
+}
+
 // Function called by DDM changes
 function optionChanged(option) {
     
     console.log(option);
     console.log(dataList);
+    console.log(gdpList);
 
     country = option;
 
     sampleOne = sampleTwo;
     sampleTwo = sampleThree;
+    gdpOne = gdpTwo;
+    gdpTwo = gdpThree;
 
     sampleThree = dataList.filter(selectData);
+    gdpThree = gdpList.filter(selectData);
 
     updateGraph1();
     updateGraph2();
     updateGraph3();
+    updateGraph4();
 
 
 
@@ -214,26 +277,32 @@ d3.json("fertdata.json").then(function(data) {
 
   countries = data.countries;
   dataList = data.data;
+  gdpList = data.data2;
 
   console.log(data);
 
   console.log(countries);
   console.log(dataList);
+  console.log(gdpList);
 
   buildDropDown(countries);
 
   country = countries[0];
   sampleOne = dataList.filter(selectData);
+  gdpOne = gdpList.filter(selectData);
 
   country = countries[1];
   sampleTwo = dataList.filter(selectData);
+  gdpTwo = gdpList.filter(selectData);
 
   country = countries[2];
   sampleThree = dataList.filter(selectData);
+  gdpThree = gdpList.filter(selectData);
 
   updateGraph1();
   updateGraph2();
   updateGraph3();
+  updateGraph4();
 
 });
 
