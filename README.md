@@ -34,9 +34,13 @@ Dashboard:
 The dashboard can be viewed at https://shermeenajani.github.io/Project-3---Data-Visualization/.
 
   Charts:
+  
   Chart 1: Births per Woman vs. Year
+  
   Chart 2: Births per Woman vs. Population
+  
   Chart 3: Births per Woman vs. % of Women in Labor Force
+  
   Chart 4: Births per Woman vs. Per Capita GDP
   
   
