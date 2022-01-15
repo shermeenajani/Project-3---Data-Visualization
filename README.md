@@ -8,14 +8,15 @@ By: Shermeen Ajani, Stuart Manito Smith and Tim Smith
 The purpose of this project was to explore and analyze the global fertility rates by country over time as well as in relation to the percent of women in the labor force, population growth and GDP per capita.  
 
 Files in Repository: 
+The fertility and related data for the analysis was retrieved from https://ourworldindata.org/fertility-rate.
   Folder Data: 
-  1) birth-rate.csv: The data was retrieved from "insert link".  It includes the year and birth per 1000 woman for the country. 
+  1) birth-rate.csv: It includes the year and birth per 1000 woman for the country. 
 
-  2) children-per-woman.csv: The data was retrieved from "insert link".  It includes the following data for each country:  year, fertility rate, GDP and population
+  2) children-per-woman.csv: It includes the following data for each country:  year, fertility rate, GDP and population.
 
-  3) female-labor.csv: The data set was retrieved from "insert link".  The labor participation, GDP and population data for each country by year was included.
+  3) female-labor.csv: The labor participation, GDP and population data for each country by year was included.
 
-  4) womensedfert.csv: The data was retrieved from "insert link". The fertility, mean years of schooling (MYOS), population by year for each country.  We did not utilize the mean years of schooling after reviewing the data.  
+  4) womensedfert.csv: The fertility, mean years of schooling (MYOS), population by year for each country.  We did not utilize the mean years of schooling after reviewing the data.  
 
   Folder Static:
   1) js: 
