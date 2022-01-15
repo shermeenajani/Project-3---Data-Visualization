@@ -9,6 +9,7 @@ The purpose of this project was to explore and analyze the global fertility rate
 
 Files in Repository: 
 The fertility and related data for the analysis was retrieved from https://ourworldindata.org/fertility-rate.
+
   Folder Data: 
   1) birth-rate.csv: It includes the year and birth per 1000 woman for the country. 
 
